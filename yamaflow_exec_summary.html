@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YamaFlow — 社長向けエグゼクティブサマリー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f1a14;
+  --green: #1a6b4a;
+  --green2: #2d9467;
+  --green3: #4ab87e;
+  --pale: #e8f5ee;
+  --pale2: #f2faf6;
+  --amber: #c47a1e;
+  --amber-pale: #fef7ed;
+  --red: #c0392b;
+  --border: #d8e8df;
+  --white: #ffffff;
+  --gray: #6b7a72;
+  --gray-light: #f5f8f6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #0d1a12;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ─── PAGE WRAPPER ─── */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+/* ─── HEADER BAND ─── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+.doc-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+}
+.full-doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: white;
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 12px rgba(26,107,74,0.4);
+}
+.full-doc-btn:hover {
+  background: var(--green2);
+  transform: translateY(-1px);
+}
+.full-doc-btn .arrow {
+  font-size: 15px;
+  transition: transform 0.2s;
+}
+.full-doc-btn:hover .arrow { transform: translateX(3px); }
+
+/* ─── HERO CARD ─── */
+.hero {
+  background: linear-gradient(140deg, #0e3a22 0%, #1a6b4a 55%, #0d5038 100%);
+  border-radius: 16px;
+  padding: 44px 48px 40px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(74,184,126,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: 'YF';
+  position: absolute;
+  bottom: -30px; right: 36px;
+  font-size: 160px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--green3);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.hero-title em {
+  font-style: normal;
+  color: #7fdba8;
+  font-size: 15px;
+  display: block;
+  margin-bottom: 6px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+.hero-sub {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+.hero-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.kpi {
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: background 0.2s;
+}
+.kpi:hover { background: rgba(255,255,255,0.14); }
+.kpi-label {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+  margin-bottom: 5px;
+}
+.kpi-num {
+  font-size: 22px;
+  font-weight: 900;
+  color: #7fdba8;
+  line-height: 1;
+}
+.kpi-unit {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 3px;
+}
+
+/* ─── GRID LAYOUT ─── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.grid-1 {
+  margin-bottom: 16px;
+}
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.card-head {
+  background: var(--pale2);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-head .icon {
+  width: 22px; height: 22px;
+  background: var(--green);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.card-head h2 {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.04em;
+}
+.card-body {
+  padding: 16px 18px;
+}
+
+/* ─── WHY NOW ─── */
+.why-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.why-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #2a3830;
+}
+.why-list .badge {
+  flex-shrink: 0;
+  background: var(--green);
+  color: white;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.why-list .badge.amber {
+  background: var(--amber);
+}
+
+/* ─── REVENUE MODEL ─── */
+.rev-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.rev-table th {
+  text-align: left;
+  padding: 7px 10px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--gray);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.04em;
+}
+.rev-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eef2ef;
+  vertical-align: middle;
+}
+.rev-table tr:last-child td {
+  border-bottom: none;
+  background: var(--pale2);
+  font-weight: 700;
+  color: var(--green);
+  font-size: 13px;
+}
+.rev-table .amount {
+  text-align: right;
+  font-weight: 700;
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rev-table .condition {
+  color: var(--gray);
+  font-size: 11.5px;
+}
+.rev-bar {
+  height: 5px;
+  background: var(--pale);
+  border-radius: 3px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+.rev-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── ROADMAP ─── */
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.phase {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  position: relative;
+}
+.phase:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 15px; top: 32px; bottom: -4px;
+  width: 2px;
+  background: var(--border);
+}
+.phase-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--green);
+  z-index: 1;
+}
+.phase-dot.dim {
+  background: var(--border);
+  box-shadow: 0 0 0 2px var(--border);
+  color: var(--gray);
+}
+.phase-content {
+  padding: 3px 0 18px;
+  flex: 1;
+}
+.phase-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.phase-period {
+  font-size: 10.5px;
+  color: var(--gray);
+  margin-bottom: 5px;
+}
+.phase-items {
+  font-size: 12px;
+  color: #3a4f45;
+  line-height: 1.65;
+}
+.phase-target {
+  display: inline-block;
+  background: var(--pale);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-top: 4px;
+}
+
+/* ─── STRATEGY ─── */
+.strategy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.strat-item {
+  background: var(--gray-light);
+  border-radius: 8px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--green);
+}
+.strat-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.strat-desc {
+  font-size: 12px;
+  color: #3a4f45;
+  line-height: 1.6;
+}
+
+/* ─── VISION CARD ─── */
+.vision-card {
+  background: var(--ink);
+  border-radius: 12px;
+  padding: 24px 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.vision-card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(74,184,126,0.12) 0%, transparent 70%);
+}
+.vision-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--green3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.vision-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.vision-sub {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+.brand-messages {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.brand-msg {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.brand-lang {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--green3);
+  white-space: nowrap;
+  min-width: 30px;
+}
+.brand-msg-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+/* ─── RISK MATRIX ─── */
+.risk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.risk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12.5px;
+  color: #2a3830;
+  line-height: 1.55;
+}
+.risk-tag {
+  flex-shrink: 0;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-top: 1px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.risk-tag.high { background: #fde8e6; color: var(--red); }
+.risk-tag.mid { background: var(--amber-pale); color: var(--amber); }
+.risk-tag.low { background: var(--pale); color: var(--green); }
+
+/* ─── NEXT ACTIONS ─── */
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  counter-reset: action;
+}
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--pale2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.action-num {
+  width: 22px; height: 22px;
+  background: var(--green);
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.action-text {
+  font-size: 12.5px;
+  color: #1a2820;
+  line-height: 1.55;
+  flex: 1;
+}
+.action-text strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+.action-text span {
+  color: var(--gray);
+  font-size: 11.5px;
+}
+
+/* ─── FULL DOC BANNER ─── */
+.full-doc-banner {
+  background: linear-gradient(135deg, var(--green) 0%, #0d5038 100%);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+.banner-text h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+}
+.banner-text p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+}
+.banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: var(--green);
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+.banner-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  text-align: center;
+  padding: 24px 0 0;
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero        { animation: fadeUp 0.5s ease 0.05s both; }
+.grid-2, .grid-3, .grid-1 { animation: fadeUp 0.5s ease 0.15s both; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 680px) {
+  .hero { padding: 28px 24px; }
+  .hero-kpis { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: 21px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .strategy-grid { grid-template-columns: 1fr; }
+  .full-doc-banner { flex-direction: column; text-align: center; }
+}
+
+@media print {
+  body { background: white; }
+  .page { padding: 0; }
+  .top-bar { display: none; }
+  .hero { background: var(--green) !important; print-color-adjust: exact; }
+  .full-doc-banner { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="doc-label">YamaFlow — 社長向けエグゼクティブサマリー　2026-04-28</div>
+    <a href="https://dc3yutodaicho.github.io/yamaflow_proposal_index/" target="_blank" class="full-doc-btn">
+      網羅版提案書を開く <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">新規事業提案 — 株式会社デジコンキューブ</div>
+    <div class="hero-title">
+      <em>YamaFlow（ヤマフロー）</em>
+      山形インバウンド需要予測・<br>観光導線制御プラットフォーム事業
+    </div>
+    <div class="hero-sub">
+      山形への海外関心を「増やすだけ」ではなく、蔵王・銀山への一極集中を抑えながら県内全域へ分散させ、自治体DX受託・事業者支援・県内経済循環へ変換する。3年目に年間売上1億円超を目指す。
+    </div>
+    <div class="hero-kpis">
+      <div class="kpi">
+        <div class="kpi-label">3年目目標売上</div>
+        <div class="kpi-num">1億+</div>
+        <div class="kpi-unit">標準シナリオ</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">自治体受注目標</div>
+        <div class="kpi-num">3〜5</div>
+        <div class="kpi-unit">件（3年目）</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">事業者制作目標</div>
+        <div class="kpi-num">50</div>
+        <div class="kpi-unit">件 / 年</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">強気シナリオ</div>
+        <div class="kpi-num">1.5億+</div>
+        <div class="kpi-unit">広域展開時</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 1: WHY NOW + VISION -->
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">⚡</div>
+        <h2>なぜ今やるべきか —— 5つの根拠</h2>
+      </div>
+      <div class="card-body">
+        <ul class="why-list">
+          <li>
+            <span class="badge">NatGeo</span>
+            National Geographic選出で山形が世界認知。英語圏・欧米豪の高付加価値層への権威付けが完成している。
+          </li>
+          <li>
+            <span class="badge">星野</span>
+            星野リゾートの蔵王進出決定。蔵王集中が加速する前に周辺分散導線を先取りする必要がある。
+          </li>
+          <li>
+            <span class="badge amber">補助金</span>
+            観光庁「観光需要分散コンテンツ化促進事業（49億円）」の政策目的とYamaFlowが完全一致。令和9年度公募に向け今年度の実績づくりが急務。
+          </li>
+          <li>
+            <span class="badge amber">補助金</span>
+            山形県インバウンド受入環境整備支援事業費補助金が4月17日受付開始。事業者営業の武器になる。
+          </li>
+          <li>
+            <span class="badge">SEO</span>
+            繁体字圏（台湾・香港）の山形関連ロングテールSEOが現在空席。先手を打てば参入障壁を作れる。
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="vision-card">
+      <div class="vision-label">Vision &amp; Brand</div>
+      <div class="vision-text">山形への海外関心を、地域全体の回遊と持続可能な経済循環に変換する。</div>
+      <div class="vision-sub">単なる観光メディアではなく、検索・SNS・AI上の需要を<br>自治体政策・地域経済へ接続する「観光導線インフラ」として設計。</div>
+      <div class="brand-messages">
+        <div class="brand-msg">
+          <span class="brand-lang">JP</span>
+          <span class="brand-msg-text">海外からの関心を、山形全体の回遊と消費へ。</span>
+        </div>
+        <div class="brand-msg">
+          <span class="brand-lang">EN</span>
+          <span class="brand-msg-text">Uncrowded Japan, Deeply Seasonal.</span>
+        </div>
+        <div class="brand-msg">
+          <span class="brand-lang">繁</span>
+          <span class="brand-msg-text">不只藏王與銀山，真正會玩的山形自由行。</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: REVENUE + ROADMAP -->
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">¥</div>
+        <h2>収益モデル —— 3年目・標準到達モデル</h2>
+      </div>
+      <div class="card-body">
+        <table class="rev-table">
+          <thead>
+            <tr>
+              <th>収益パターン</th>
+              <th style="text-align:right">年間売上</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                自治体DX受託・年間運用
+                <div class="condition">1,500万円 × 3件</div>
+                <div class="rev-bar"><div class="rev-bar-fill" style="width:75%"></div></div>
+              </td>
+              <td class="amount">4,500万円</td>
+            </tr>
+            <tr>
+              <td>
+                事業者制作・受入整備
+                <div class="condition">50万円 × 50件</div>
+                <div class="rev-bar"><div class="rev-bar-fill" style="width:42%"></div></div>
+              </td>
+              <td class="amount">2,500万円</td>
+            </tr>
+            <tr>
+              <td>
+                SNS運用月額
+                <div class="condition">月15万円 × 10件 × 12ヶ月</div>
+                <div class="rev-bar"><div class="rev-bar-fill" style="width:30%"></div></div>
+              </td>
+              <td class="amount">1,800万円</td>
+            </tr>
+            <tr>
+              <td>
+                補助金活用支援フィー
+                <div class="condition">30万円 × 30件</div>
+                <div class="rev-bar"><div class="rev-bar-fill" style="width:15%"></div></div>
+              </td>
+              <td class="amount">900万円</td>
+            </tr>
+            <tr>
+              <td>
+                需要分析・地域レポート
+                <div class="condition">月30万円 × 1件 × 12ヶ月</div>
+                <div class="rev-bar"><div class="rev-bar-fill" style="width:6%"></div></div>
+              </td>
+              <td class="amount">360万円</td>
+            </tr>
+            <tr>
+              <td>合計（3年目標準）</td>
+              <td class="amount">1億60万円</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;padding:10px 12px;background:var(--amber-pale);border-radius:6px;border-left:3px solid var(--amber);">
+          <div style="font-size:11.5px;color:#7a4d10;line-height:1.6;">
+            <strong style="display:block;margin-bottom:2px;">到達条件（いずれか3つ以上）</strong>
+            自治体契約3件以上 ／ 事業者制作50件以上 ／ SNS運用10件以上 ／ 補助金活用支援を制作受注に接続
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">→</div>
+        <h2>ロードマップ —— 3年6フェーズ</h2>
+      </div>
+      <div class="card-body">
+        <div class="roadmap">
+          <div class="phase">
+            <div class="phase-dot">0</div>
+            <div class="phase-content">
+              <div class="phase-name">準備期間</div>
+              <div class="phase-period">0〜1ヶ月</div>
+              <div class="phase-items">事業名確定・ドメイン・キーワード設計・補助金テーマ洗い出し</div>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot">1</div>
+            <div class="phase-content">
+              <div class="phase-name">MVP構築</div>
+              <div class="phase-period">1〜3ヶ月</div>
+              <div class="phase-items">英語＋繁体字 30〜50ページ公開・Instagram開始</div>
+              <div class="phase-target">進行条件：30ページ公開 / インデックス確認</div>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot">2</div>
+            <div class="phase-content">
+              <div class="phase-name">需要可視化</div>
+              <div class="phase-period">4〜6ヶ月</div>
+              <div class="phase-items">60〜100ページ・地域別検索シェア試算・自治体接触</div>
+              <div class="phase-target">進行条件：月間PV 3,000〜5,000 / 自治体面談1〜3件</div>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot">3</div>
+            <div class="phase-content">
+              <div class="phase-name">初期収益化</div>
+              <div class="phase-period">7〜12ヶ月</div>
+              <div class="phase-items">有料プラン・SNS運用・補助金パック・需要レポート提出</div>
+              <div class="phase-target">進行条件：有料契約5〜10件 / 売上300〜800万円</div>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot dim">4</div>
+            <div class="phase-content">
+              <div class="phase-name">自治体実証</div>
+              <div class="phase-period">13〜24ヶ月</div>
+              <div class="phase-items">1自治体で快適度スコア・需要アラート・ダッシュボード実証</div>
+              <div class="phase-target">進行条件：実証受注1件以上 / 運用実績3ヶ月以上</div>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot dim">5</div>
+            <div class="phase-content">
+              <div class="phase-name">広域展開・1億円超</div>
+              <div class="phase-period">25〜36ヶ月</div>
+              <div class="phase-items">複数自治体・防災連携・県内企業コンソーシアム</div>
+              <div class="phase-target">目標：年間売上1億円超</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 3: STRATEGY + RISKS -->
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">◈</div>
+        <h2>事業戦略の4本柱</h2>
+      </div>
+      <div class="card-body">
+        <div class="strategy-grid">
+          <div class="strat-item">
+            <div class="strat-title">① 繁体字SEO先取り</div>
+            <div class="strat-desc">台湾・香港FIT向けロングテールが現在空席。「山形自由行」「月山夏季滑雪」等から先行獲得し参入障壁を構築。</div>
+          </div>
+          <div class="strat-item">
+            <div class="strat-title">② メディアを営業資産化</div>
+            <div class="strat-desc">自社メディアは収益の主役ではなく、自治体への提案実績・検索データの取得基盤として活用する。</div>
+          </div>
+          <div class="strat-item">
+            <div class="strat-title">③ 補助金パイプライン</div>
+            <div class="strat-desc">山形県補助金で事業者の自己負担を半減し受注しやすくする。観光庁補助金の次回公募（令和9年度）へ申請準備も並行。</div>
+          </div>
+          <div class="strat-item">
+            <div class="strat-title">④ 自治体は調査から入る</div>
+            <div class="strat-desc">大型案件は直接狙わず100〜300万円の調査・台帳整備から入り、翌年度の本契約へ接続する。公共調達の壁を迂回する。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">!</div>
+        <h2>リスクと対策</h2>
+      </div>
+      <div class="card-body">
+        <div class="risk-list">
+          <div class="risk-item">
+            <span class="risk-tag high">高</span>
+            <div>
+              <strong style="font-size:12.5px;font-weight:700;display:block;margin-bottom:2px;">自治体受注が遅延する</strong>
+              <span style="font-size:12px;color:var(--gray);">対策：1年目は事業者制作・補助金支援で先にキャッシュを作る。自治体なしでも1,000万円規模は設計済み。</span>
+            </div>
+          </div>
+          <div class="risk-item">
+            <span class="risk-tag mid">中</span>
+            <div>
+              <strong style="font-size:12.5px;font-weight:700;display:block;margin-bottom:2px;">検索成果に6〜12ヶ月かかる</strong>
+              <span style="font-size:12px;color:var(--gray);">対策：初期KPIを売上でなくページ数・表示回数にする。SNS運用・広告で補助。</span>
+            </div>
+          </div>
+          <div class="risk-item">
+            <span class="risk-tag mid">中</span>
+            <div>
+              <strong style="font-size:12.5px;font-weight:700;display:block;margin-bottom:2px;">VISIT YAMAGATAとの競合</strong>
+              <span style="font-size:12px;color:var(--gray);">対策：公式サイトを補完する「海外向け編集・需要可視化・分散誘導」の役割を取り、正面衝突しない。</span>
+            </div>
+          </div>
+          <div class="risk-item">
+            <span class="risk-tag low">低</span>
+            <div>
+              <strong style="font-size:12.5px;font-weight:700;display:block;margin-bottom:2px;">社内工数不足</strong>
+              <span style="font-size:12px;color:var(--gray);">対策：AI活用でコンテンツ生産を効率化。人的工数は自治体営業・品質管理に集中。外注ライン早期確立。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 4: NEXT ACTIONS (FULL WIDTH) -->
+  <div class="grid-1">
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">✓</div>
+        <h2>直近で確認すべき社内アクション</h2>
+      </div>
+      <div class="card-body">
+        <div class="actions-list">
+          <div class="action-item">
+            <div class="action-num">1</div>
+            <div class="action-text">
+              <strong>避難マップシステムの権利・改修余地を確認する</strong>
+              <span>自治体提案の最大差別化軸。「観光×防災統合」が他社にない独自価値。この技術を使える状態かどうかが提案の強度を決める。</span>
+            </div>
+          </div>
+          <div class="action-item">
+            <div class="action-num">2</div>
+            <div class="action-text">
+              <strong>事業責任者と営業担当を決定する</strong>
+              <span>Phase 0（今月中）の進行条件。自治体折衝は担当者が固定されていないと動けない。</span>
+            </div>
+          </div>
+          <div class="action-item">
+            <div class="action-num">3</div>
+            <div class="action-text">
+              <strong>初年度の先行投資許容額を確定する（目安：標準版433万円）</strong>
+              <span>保守246万円〜標準433万円〜高め810万円の3シナリオあり。最低限の保守ラインで1年目黒字化は標準シナリオで達成可能。</span>
+            </div>
+          </div>
+          <div class="action-item">
+            <div class="action-num">4</div>
+            <div class="action-text">
+              <strong>山形市・南陽市・長井市の観光担当部署へのルート確認</strong>
+              <span>既存コネクションがあれば自治体実証（Phase 4）到達が最大6ヶ月短縮できる。</span>
+            </div>
+          </div>
+          <div class="action-item">
+            <div class="action-num">5</div>
+            <div class="action-text">
+              <strong>山形県インバウンド受入環境整備補助金の最新要項を取得する</strong>
+              <span>令和7年4月17日受付開始済み。事業者営業の具体的な武器になる。対象経費・上限額・着手タイミングを確認する。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL DOC BANNER -->
+  <div class="full-doc-banner">
+    <div class="banner-text">
+      <h3>網羅版提案書（全31章 ＋ 付録A〜D）を参照する</h3>
+      <p>快適度スコア設計・キャパシティ台帳・収益詳細シナリオ・価格表・法務・補助金活用設計 など完全収録</p>
+    </div>
+    <a href="https://dc3yutodaicho.github.io/yamaflow_proposal_index/" target="_blank" class="banner-btn">
+      提案書全文を開く →
+    </a>
+  </div>
+
+  <div class="footer">
+    YamaFlow 事業提案書 v07 · 株式会社デジコンキューブ · 社内決裁用 · 2026-04-28
+  </div>
+
+</div>
+
+</body>
+</html>
